@@ -1,0 +1,22 @@
+name: Make release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  make-release:
+    runs-on: ubuntu-24.04
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/checkout@v4
+      - run: echo "version=0.0.$(git rev-list --count HEAD)" >> $GITHUB_OUTPUT
+        id: version
+      - uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{steps.version.outputs.version}}
+          prerelease: true
+          make_latest: false
+        
