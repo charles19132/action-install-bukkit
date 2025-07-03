@@ -1,0 +1,28 @@
+name: Test action
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  test:
+    name: Test
+    strategy:
+      matrix:
+        os: 
+          - windows-latest
+          - macos-latest
+          - ubuntu-latest
+    runs-on: ${{matrix.os}}
+    steps:
+      - uses: actions/setup-java@v4
+        with:
+          distribution: "temurin"
+          java-version: "21"
+      - uses: charles25565/action-install-bukkit@main
+        with:
+          rev: 1.21.6
