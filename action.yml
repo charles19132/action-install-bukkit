@@ -1,30 +1,26 @@
-name: Install Bukkit
-description: Installs Bukkit to the local Maven repo.
+name: "Install Bukkit"
+description: "Installs Bukkit to the local Maven repo."
 inputs:
   rev:
-    description: The revision of Bukkit.
+    description: "The revision of Bukkit."
     required: true
 runs:
   using: composite
   steps:
-    - name: Get Bukkit revision
-      id: rev
-      run: |
+    - run: |
         $bukkitRevision = (Invoke-RestMethod "https://hub.spigotmc.org/versions/${{inputs.rev}}.json").refs.Bukkit
-        Write-Output "rev=${bukkitRevision}" >> $env:GITHUB_OUTPUT 
+        Write-Output "rev=${bukkitRevision}" >> $env:GITHUB_OUTPUT
+      id: rev
       shell: pwsh
-    - name: Clone Bukkit
-      run: |
+    - run: |
         Invoke-WebRequest "https://hub.spigotmc.org/stash/rest/api/latest/projects/SPIGOT/repos/bukkit/archive?at=${{steps.rev.outputs.rev}}&format=zip" -OutFile ([System.IO.Path]::GetTempPath() + "_bukkit.zip")
         Expand-Archive -Path ([System.IO.Path]::GetTempPath() + "_bukkit.zip") -DestinationPath ([System.IO.Path]::GetTempPath() + "_bukkit")
         Remove-Item -Force ([System.IO.Path]::GetTempPath() + "_bukkit.zip")
       shell: pwsh
-    - name: Install Bukkit
-      run: |
+    - run: |
         Push-Location -Path ([System.IO.Path]::GetTempPath() + "_bukkit")
         mvn install
         Pop-Location
       shell: pwsh
-    - name: Clean up Bukkit folder
-      run: Remove-Item -Recurse -Force ([System.IO.Path]::GetTempPath() + "_bukkit")
+    - run: Remove-Item -Recurse -Force ([System.IO.Path]::GetTempPath() + "_bukkit")
       shell: pwsh
