@@ -23,6 +23,6 @@ jobs:
         with:
           distribution: "temurin"
           java-version: "21"
-      - uses: charles25565/action-install-bukkit@main
+      - uses: charles19132/action-install-bukkit@main
         with:
           rev: 1.21.4
