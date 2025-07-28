@@ -1,5 +1,3 @@
-name: Test action
-
 on:
   push:
     branches:
@@ -10,7 +8,6 @@ on:
 
 jobs:
   test:
-    name: Test
     strategy:
       matrix:
         os: 
@@ -25,4 +22,4 @@ jobs:
           java-version: "21"
       - uses: charles19132/action-install-bukkit@main
         with:
-          rev: 1.21.4
+          rev: "1.21.4"
