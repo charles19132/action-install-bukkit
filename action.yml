@@ -1,8 +1,8 @@
-name: "Install Bukkit"
-description: "Installs Bukkit to the local Maven repo."
+name: Install Bukkit
+description: Installs Bukkit to the local Maven repo.
 inputs:
   rev:
-    description: "The revision of Bukkit."
+    description: The revision of Bukkit.
     required: true
 runs:
   using: composite
