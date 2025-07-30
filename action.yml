@@ -9,7 +9,7 @@ runs:
   steps:
     - run: |
         $bukkitRevision = (Invoke-RestMethod "https://hub.spigotmc.org/versions/${{inputs.rev}}.json").refs.Bukkit
-        Write-Output "rev=${bukkitRevision}" >> $env:GITHUB_OUTPUT
+        Write-Output "rev=${bukkitRevision}" >> "$env:GITHUB_OUTPUT"
       id: rev
       shell: pwsh
     - run: |
